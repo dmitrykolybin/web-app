@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1>Личный кабинет</h1>
+<p>Имя: <span th:text="${doctor.fullName}"></span></p>
+<p>Должность: <span th:text="${doctor.speciality}"></span></p>
+<a th:href="@{/logout}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Выйти</a>
+<form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
+</body>
+</html>
