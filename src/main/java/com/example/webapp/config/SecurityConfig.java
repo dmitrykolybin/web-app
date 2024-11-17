@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/") // Перенаправление на лэндинг
                         .invalidateHttpSession(true) // Инвалидируем сессию
                         .clearAuthentication(true)  // Чистим авторизацию
-                        .deleteCookies("JSESSIONID") // Удаляем cookie
+                        .deleteCookies("JSESSIONID") // 
                         .permitAll()
                 );
         return http.build();
