@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Информация о пациенте</title>
+</head>
+<body>
+<h1>Информация о пациенте</h1>
+<div th:if="${patient != null}">
+    <p>Имя: <span th:text="${patient.fullName}"></span></p>
+    <p>Пол: <span th:text="${patient.gender}"></span></p>
+    <p>Дата рождения: <span th:text="${patient.birthDate}"></span></p>
+    <p>Номер телефона: <span th:text="${patient.phoneNumber}"></span></p>
+    <p>Врач: <span th:text="${doctor.fullName}"></span></p>
+</div>
+<a th:href="@{/dashboard}">Назад в личный кабинет</a>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.example.webapp.service;
 
 import com.example.webapp.entity.Doctor;
 import com.example.webapp.repository.DoctorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoctorDetailsService implements UserDetailsService {
 
-    private final DoctorRepository doctorRepository;
-
-    public DoctorDetailsService(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
-    }
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

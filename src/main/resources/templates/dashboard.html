@@ -6,7 +6,13 @@
 <body>
 <h1>Личный кабинет</h1>
 <p>Имя: <span th:text="${doctor.fullName}"></span></p>
-<p>Должность: <span th:text="${doctor.speciality}"></span></p>
+<p>Специальность: <span th:text="${doctor.speciality}"></span></p>
+
+<form action="/patient" method="get">
+    <input type="text" name="patientName" placeholder="Введите имя пациента" required>
+    <button type="submit">Найти пациента</button>
+</form>
+
 <a th:href="@{/logout}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Выйти</a>
 <form id="logoutForm" th:action="@{/logout}" method="post" style="display: none;"></form>
 </body>
