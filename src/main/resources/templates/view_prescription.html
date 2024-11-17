@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Информация о рецепте</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <h1>Информация о рецепте</h1>
@@ -11,6 +12,7 @@
     <p>Имя врача: <span th:text="${prescription.doctor.fullName}"></span></p>
     <p>Дата: <span th:text="${prescription.issueDate}"></span></p>
     <p>Статус: <span th:text="${prescription.status}"></span></p>
+    <p>Примечания: <span th:text="${prescription.remarks}"></span></p>
     <h2>Список лекарств</h2>
     <table>
         <thead>
@@ -30,8 +32,6 @@
         </tr>
         </tbody>
     </table>
-    <h2>Примечания</h2>
-    <p th:text="${prescription.remarks}"></p>
     <form action="/patient" method="get">
         <button type="submit">Назад к информации о пациенте</button>
     </form>

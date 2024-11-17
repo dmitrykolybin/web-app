@@ -20,7 +20,7 @@ public class Patient {
     private String gender;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    private String birthDate;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;

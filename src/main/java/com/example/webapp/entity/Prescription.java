@@ -26,7 +26,7 @@ public class Prescription {
     private Patient patient;
 
     @Column(name = "issue_date")
-    private LocalDate issueDate;
+    private String issueDate;
 
     @Column(name = "status")
     private String status;

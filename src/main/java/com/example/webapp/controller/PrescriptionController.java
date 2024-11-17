@@ -59,7 +59,7 @@ public class PrescriptionController {
         Prescription prescription = (Prescription) model.getAttribute("new_prescription");
         prescription.setRemarks(remarks);
         prescription.setStatus("active");
-        prescription.setIssueDate(LocalDate.now());
+        prescription.setIssueDate(LocalDate.now().toString());
         prescriptionRepository.save(prescription);
         return "redirect:/patient";
     }

@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Список лекарств</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
+<p>Диагноз: <span th:text="${new_prescription.diagnosis}"></span></p>
+<p>Врач: <span th:text="${new_prescription.doctor.fullName}"></span></p>
+<p>Пациент: <span th:text="${new_prescription.patient.fullName}"></span></p>
 <h2>Список лекарств</h2>
 <table>
     <thead>
