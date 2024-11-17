@@ -21,4 +21,7 @@ public class Medicine {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "contraindications", nullable = false)
+    private String contraindications;
 }

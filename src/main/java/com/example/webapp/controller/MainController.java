@@ -15,4 +15,9 @@ public class MainController {
     public String loginPage() {
         return "login";
     }
+
+    @GetMapping("/new_prescription")
+    public String newPrescriptionPage() {
+        return "new_prescription";
+    }
 }

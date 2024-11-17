@@ -26,7 +26,7 @@ public class Prescription {
     @Column(name = "issue_date")
     private String issueDate;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
     @Column(name = "remarks")

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список лекарств</title>
+</head>
+<body>
+<h2>Список лекарств</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Доза</th>
+        <th>Частота</th>
+        <th>Продолжительность</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="prescription_medicine : ${medicine_list}">
+        <td th:text="${prescription_medicine.medicine.name}"></td>
+        <td th:text="${prescription_medicine.medicine.dosage}"></td>
+        <td th:text="${prescription_medicine.frequency}"></td>
+        <td th:text="${prescription_medicine.duration}"></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/medicine_catalog}" method="get">
+    <button type="submit">Добавить лекарство</button>
+</form>
+<form th:action="@{/complete_prescription}" method="get">
+    <label for="remarks">Добавьте комментарий</label>
+    <input type="text" id="remarks" name="remarks">
+    <button type="submit">Создать рецепт</button>
+</form>
+</body>
+</html>

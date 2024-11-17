@@ -26,9 +26,4 @@ public class DoctorController {
         model.addAttribute("doctor", doctor);
         return "dashboard";
     }
-
-    @ModelAttribute("doctor")
-    public Doctor getDoctor() {
-        return new Doctor();
-    }
 }

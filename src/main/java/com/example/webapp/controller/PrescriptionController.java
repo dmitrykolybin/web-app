@@ -1,5 +1,6 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.entity.Doctor;
 import com.example.webapp.entity.Patient;
 import com.example.webapp.entity.Prescription;
 import com.example.webapp.entity.PrescriptionMedicine;
@@ -9,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 @Controller
-@SessionAttributes({"patient", "doctor"})
+@SessionAttributes({"patient", "doctor", "new_prescription"})
 public class PrescriptionController {
 
     @Autowired
@@ -28,13 +30,35 @@ public class PrescriptionController {
     public String findPrescription(@RequestParam("prescriptionId") Long prescriptionId, Model model) {
         Prescription prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(() -> new IllegalStateException("Patient not found"));
-        Patient patient = (Patient) model.getAttribute("patient");
         List<PrescriptionMedicine> prescriptionMedicines = prescriptionMedicineRepository
-                .findByPrescriptionId(prescriptionId);
+                .findByPrescription(prescription);
 
         model.addAttribute("prescription", prescription);
         model.addAttribute("prescription_medicines", prescriptionMedicines);
-        model.addAttribute("patient", patient);
         return "view_prescription";
+    }
+
+    @GetMapping("/save_start_info")
+    public String newPrescription(@RequestParam("diagnosis") String diagnosis, Model model) {
+        Doctor doctor = (Doctor) model.getAttribute("doctor");
+        Patient patient = (Patient) model.getAttribute("patient");
+
+        Prescription prescription = new Prescription();
+        prescription.setDiagnosis(diagnosis);
+        prescription.setPatient(patient);
+        prescription.setDoctor(doctor);
+        prescriptionRepository.save(prescription);
+
+        model.addAttribute("new_prescription", prescription);
+
+        return "redirect:/view_medicine_list";
+    }
+
+    @GetMapping("/complete_prescription")
+    public String completePrescription(@RequestParam("remarks") String remarks, Model model) {
+        Prescription prescription = (Prescription) model.getAttribute("new_prescription");
+        prescription.setRemarks(remarks);
+        prescriptionRepository.save(prescription);
+        return "redirect:/patient";
     }
 }

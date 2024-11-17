@@ -25,21 +25,19 @@ public class PatientController {
     @Autowired
     private PatientRepository patientRepository;
 
-    @GetMapping("/patient")
+    @GetMapping("/find_patient")
     public String findPatient(@RequestParam("patientName") String patientName, Model model) {
         Patient patient = patientRepository.findByFullNameContaining(patientName)
                 .orElseThrow(() -> new IllegalStateException("Patient not found"));
-        Doctor doctor = (Doctor) model.getAttribute("doctor");
-        List<Prescription> prescriptions = prescriptionRepository.findByPatient(patient);
-
         model.addAttribute("patient", patient);
-        model.addAttribute("doctor", doctor);
-        model.addAttribute("prescriptions", prescriptions);
-        return "patient";
+        return "redirect:/patient";
     }
 
-    @ModelAttribute("patient")
-    public Patient getPatient() {
-        return new Patient();
+    @GetMapping("/patient")
+    public String patientInfo(Model model) {
+        Patient patient = (Patient) model.getAttribute("patient");
+        List<Prescription> prescriptions = prescriptionRepository.findByPatient(patient);
+        model.addAttribute("prescriptions", prescriptions);
+        return "patient";
     }
 }

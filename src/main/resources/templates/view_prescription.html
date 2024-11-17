@@ -33,7 +33,6 @@
     <h2>Примечания</h2>
     <p th:text="${prescription.remarks}"></p>
     <form action="/patient" method="get">
-        <input type="hidden" name="patientName" th:value="${patient.fullName}">
         <button type="submit">Назад к информации о пациенте</button>
     </form>
 </div>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание нового рецепта</title>
+</head>
+<body>
+<h2>Создание нового рецепта</h2>
+<form th:action="@{/save_start_info}" method="get">
+    <label for="diagnosis">Введите диагноз</label>
+    <input type="text" id="diagnosis" name="diagnosis">
+    <button type="submit">Продолжить</button>
+</form>
+
+</body>
+</html>
