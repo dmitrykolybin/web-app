@@ -1,6 +1,5 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.entity.Doctor;
 import com.example.webapp.entity.Prescription;
 import com.example.webapp.repository.PatientRepository;
 import com.example.webapp.repository.PrescriptionRepository;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import com.example.webapp.entity.Patient;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 

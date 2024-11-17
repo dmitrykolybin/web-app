@@ -3,6 +3,8 @@ package com.example.webapp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "patient")
 @Data
@@ -18,7 +20,7 @@ public class Patient {
     private String gender;
 
     @Column(name = "birth_date", nullable = false)
-    private String birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;

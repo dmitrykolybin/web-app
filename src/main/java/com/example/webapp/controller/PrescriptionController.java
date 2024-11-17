@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -58,6 +58,8 @@ public class PrescriptionController {
     public String completePrescription(@RequestParam("remarks") String remarks, Model model) {
         Prescription prescription = (Prescription) model.getAttribute("new_prescription");
         prescription.setRemarks(remarks);
+        prescription.setStatus("active");
+        prescription.setIssueDate(LocalDate.now());
         prescriptionRepository.save(prescription);
         return "redirect:/patient";
     }

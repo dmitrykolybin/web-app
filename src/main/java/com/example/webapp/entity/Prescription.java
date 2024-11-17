@@ -3,6 +3,8 @@ package com.example.webapp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "prescription")
 @Data
@@ -24,7 +26,7 @@ public class Prescription {
     private Patient patient;
 
     @Column(name = "issue_date")
-    private String issueDate;
+    private LocalDate issueDate;
 
     @Column(name = "status")
     private String status;
