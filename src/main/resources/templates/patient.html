@@ -11,7 +11,36 @@
     <p>Дата рождения: <span th:text="${patient.birthDate}"></span></p>
     <p>Номер телефона: <span th:text="${patient.phoneNumber}"></span></p>
     <p>Врач: <span th:text="${doctor.fullName}"></span></p>
+
+    <h2>Рецепты</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Диагноз</th>
+            <th>Дата</th>
+            <th>Врач</th>
+            <th>Статус</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prescription : ${prescriptions}">
+            <td th:text="${prescription.id}"></td>
+            <td th:text="${prescription.diagnosis}"></td>
+            <td th:text="${prescription.issueDate}"></td>
+            <td th:text="${prescription.doctor.fullName}"></td>
+            <td th:text="${prescription.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/view_prescription}" method="get">
+        <label for="prescriptionId">Введите номер рецепта:</label>
+        <input type="text" id="prescriptionId" name="prescriptionId" required>
+        <button type="submit">Посмотреть рецепт</button>
+    </form>
 </div>
-<a th:href="@{/dashboard}">Назад в личный кабинет</a>
+<form th:action="@{/dashboard}" method="get">
+    <button type="submit">Назад в личный кабинет</button>
+</form>
 </body>
 </html>
