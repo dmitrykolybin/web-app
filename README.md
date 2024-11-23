@@ -3,6 +3,6 @@
 - Data JPA
 - Thymeleaf
 - Lombok
-- PosthreSQL
+- PostgreSQL
 - HTML
 - CSS
