@@ -34,4 +34,6 @@ public class Prescription {
     @Column(name = "remarks")
     private String remarks;
 
+    @Column(name="sign")
+    private String sign;
 }

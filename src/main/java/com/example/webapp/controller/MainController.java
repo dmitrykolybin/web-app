@@ -20,4 +20,9 @@ public class MainController {
     public String newPrescriptionPage() {
         return "new_prescription";
     }
+
+    @GetMapping("/reg_new_patient")
+    public String regNewPatientPage() {
+        return "reg_new_patient";
+    }
 }

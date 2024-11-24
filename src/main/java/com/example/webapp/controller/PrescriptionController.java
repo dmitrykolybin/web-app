@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 @Controller
-@SessionAttributes({"patient", "doctor", "new_prescription"})
+@SessionAttributes({"patient", "doctor", "prescription", "new_prescription"})
 public class PrescriptionController {
 
     @Autowired
@@ -26,7 +27,26 @@ public class PrescriptionController {
     @Autowired
     private PrescriptionMedicineRepository prescriptionMedicineRepository;
 
-    @GetMapping("/view_prescription")
+    private static String generateRandomString() {
+        int length = 16;
+        String allowedChars = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+        // Создаем объект для генерации случайных чисел
+        Random random = new Random();
+
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            // Выбираем случайный символ из допустимых
+            char randomChar = allowedChars.charAt(random.nextInt(allowedChars.length()));
+
+            // Добавляем выбранный символ к строке
+            sb.append(randomChar);
+        }
+
+        return sb.toString();
+    }
+
+    @GetMapping("/find_prescription")
     public String findPrescription(@RequestParam("prescriptionId") Long prescriptionId, Model model) {
         Prescription prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(() -> new IllegalStateException("Patient not found"));
@@ -36,6 +56,37 @@ public class PrescriptionController {
         model.addAttribute("prescription", prescription);
         model.addAttribute("prescription_medicines", prescriptionMedicines);
         return "view_prescription";
+    }
+
+    @GetMapping("/view_prescription")
+    public String findPrescription(Model model) {
+        Prescription prescription = (Prescription) model.getAttribute("prescription");
+        List<PrescriptionMedicine> prescriptionMedicines = prescriptionMedicineRepository
+                .findByPrescription(prescription);
+
+        model.addAttribute("prescription_medicines", prescriptionMedicines);
+        return "view_prescription";
+    }
+
+    @GetMapping("/activate_prescription")
+    public String activatePrescription(Model model) {
+        Prescription prescription = (Prescription) model.getAttribute("prescription");
+        String sign = generateRandomString();
+        prescription.setStatus("active");
+        prescription.setSign(sign);
+        prescriptionRepository.save(prescription);
+        model.addAttribute("prescription", prescription);
+        return "redirect:/view_prescription";
+    }
+
+    @GetMapping("/deactivate_prescription")
+    public String deactivatePrescription(Model model) {
+        Prescription prescription = (Prescription) model.getAttribute("prescription");
+        prescription.setStatus("inactive");
+        prescription.setSign("");
+        prescriptionRepository.save(prescription);
+        model.addAttribute("prescription", prescription);
+        return "redirect:/view_prescription";
     }
 
     @GetMapping("/save_start_info")
@@ -58,9 +109,11 @@ public class PrescriptionController {
     public String completePrescription(@RequestParam("remarks") String remarks, Model model) {
         Prescription prescription = (Prescription) model.getAttribute("new_prescription");
         prescription.setRemarks(remarks);
-        prescription.setStatus("active");
+        prescription.setStatus("unassigned");
         prescription.setIssueDate(LocalDate.now().toString());
+        prescription.setSign("");
         prescriptionRepository.save(prescription);
-        return "redirect:/patient";
+        model.addAttribute("prescription", prescription);
+        return "redirect:/view_prescription";
     }
 }

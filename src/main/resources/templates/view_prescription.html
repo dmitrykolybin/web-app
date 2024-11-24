@@ -11,6 +11,7 @@
     <p>Диагноз: <span th:text="${prescription.diagnosis}"></span></p>
     <p>Имя врача: <span th:text="${prescription.doctor.fullName}"></span></p>
     <p>Дата: <span th:text="${prescription.issueDate}"></span></p>
+    <p>Электронная подпись: <span th:text="${prescription.sign}"></span></p>
     <p>Статус: <span th:text="${prescription.status}"></span></p>
     <p>Примечания: <span th:text="${prescription.remarks}"></span></p>
     <h2>Список лекарств</h2>
@@ -32,6 +33,12 @@
         </tr>
         </tbody>
     </table>
+    <form action="/activate_prescription" method="get">
+        <button type="submit">Подписать рцепт</button>
+    </form>
+    <form action="/deactivate_prescription" method="get">
+        <button type="submit">Деактивировать рецепт</button>
+    </form>
     <form action="/patient" method="get">
         <button type="submit">Назад к информации о пациенте</button>
     </form>

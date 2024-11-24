@@ -26,9 +26,13 @@ public class PatientController {
     @GetMapping("/find_patient")
     public String findPatient(@RequestParam("patientName") String patientName, Model model) {
         Patient patient = patientRepository.findByFullNameContaining(patientName)
-                .orElseThrow(() -> new IllegalStateException("Patient not found"));
-        model.addAttribute("patient", patient);
-        return "redirect:/patient";
+                .orElse(null);
+        if (patient == null) {
+            return "no_patient_found";
+        } else {
+            model.addAttribute("patient", patient);
+            return "redirect:/patient";
+        }
     }
 
     @GetMapping("/patient")
@@ -37,5 +41,23 @@ public class PatientController {
         List<Prescription> prescriptions = prescriptionRepository.findByPatient(patient);
         model.addAttribute("prescriptions", prescriptions);
         return "patient";
+    }
+
+    @GetMapping("/new_patient")
+    public String newPatient(
+            @RequestParam("fullName") String fullName,
+            @RequestParam("gender") String gender,
+            @RequestParam("birthDate") String birthDate,
+            @RequestParam("phoneNumber") String number,
+            Model model
+        ) {
+        Patient patient = new Patient();
+        patient.setFullName(fullName);
+        patient.setGender(gender);
+        patient.setBirthDate(birthDate);
+        patient.setPhoneNumber(number);
+        patientRepository.save(patient);
+        model.addAttribute("patient", patient);
+        return "redirect:/patient";
     }
 }
